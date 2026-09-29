@@ -170,3 +170,94 @@ implementering planeras:
    integreringarna används avsiktligt?
 4. Vilken logotyp, vilka bilder och vilket textinnehåll får ändras, ersättas
    eller tas bort?
+
+## Arkitektur och tekniska flöden
+
+Detta repository innehåller dokumentation, inte en webbapplikation. Det finns
+ingen `package.json`, pakethanterare, byggkonfiguration eller importerad
+WordPress-kod att köra lokalt från Git. Arkitekturen nedan beskriver därför
+den nuvarande, publikt verifierbara WordPress-installationen och anger vad som
+måste bekräftas när en lokal kopia har importerats.
+
+### Systemets huvuddelar
+
+| Del | Verifierat nuläge | Ansvar och gräns |
+| --- | --- | --- |
+| Webbplattform | WordPress levererar HTML för `wilful.se` och ett öppet REST-API under `/wp-json/`. | WordPress-kärnan, databasen och administrationsgränssnittet finns endast i produktionsmiljön eller i en importerad Studio-kopia. |
+| Presentation | Det publika HTML-svaret laddar temat `kenela` och Elementor-tillgångar. | Temats mallar och Elementors sidlayouter är inte versionshanterade här. Ändra dem först i en lokal WordPress-kopia. |
+| Innehåll | Sidor, inlägg, WooCommerce-produkter och produktkategorier är publicerade från WordPress. | Redaktionella data lagras i WordPress-databasen; ändringar i sidbyggaren kan också ligga där. |
+| Handel | WooCommerce levererar butik, varukorg, kassa och konto. | Order-, kund- och betalningsuppgifter får inte exporteras till eller hanteras i Git. |
+| Media | Bilder ligger i `wp-content/uploads` och refereras från WordPress-innehåll och presentation. | Behåll uppladdningsstrukturen vid import; originalfiler och rättigheter kontrolleras i WordPress. |
+| Formulär och flöden | Contact Form 7-tillgångar laddas publikt. | Formulärkonfiguration, mottagare och inskickade svar måste granskas i den importerade installationen och får inte dokumenteras med personuppgifter. |
+
+### Hur en sida byggs
+
+1. En besökare begär en publik URL, exempelvis `/about-breeder/`.
+2. WordPress matchar URL:en mot en sida, ett inlägg, en produkt eller en
+   WooCommerce-systemvy.
+3. WordPress hämtar innehåll och inställningar ur databasen. För de publika
+   sidorna tyder laddade tillgångar på att tema `kenela` tillsammans med
+   Elementor svarar för sidans mall, sektioner och widgets.
+4. Temat och tilläggen laddar CSS, JavaScript, typsnitt och bilder. Webbläsaren
+   hämtar därefter externa resurser, till exempel Google Fonts och
+   Facebook-flödet.
+5. Den färdiga HTML-sidan levereras från produktionswebbplatsen.
+
+Återanvändbara UI-delar ska tills vidare behandlas som tema- eller
+Elementor-komponenter: sidhuvud, sidfot, navigering, innehållssektioner,
+produktkort, varukorg/kassa och kontaktformulär. Deras faktiska mallnamn,
+placering och inställningar kan inte fastställas förrän `wp-content/themes`,
+`wp-content/plugins` och databasen har importerats. När de finns lokalt ska
+denna lista ersättas med de verkliga filerna, Elementor-mallarna och ansvariga
+tilläggen.
+
+### Dataflöden
+
+| Källa | Bearbetning och lagring | Publicerad yta |
+| --- | --- | --- |
+| Redaktionellt innehåll i WordPress | WordPress-databasen; Elementor kan lagra layoutdata i databasen | Sidor, inlägg och nyhetsarkiv |
+| Produktdata i WooCommerce | WordPress-databasen och WooCommerce | Butik, produktdetaljer, varukorg, kassa och konto |
+| Uppladdade bilder och ikoner | `wp-content/uploads` | Bildblock, galleri, produktbilder och favicon |
+| Formulärinmatning | Contact Form 7 och dess konfiguration; lagrings- och e-postflöde är inte verifierat | Kontaktsidan |
+| Facebook-innehåll | Custom Facebook Feed Pro hämtar data från Facebook | Inbäddat flöde på publika sidor |
+
+REST-API:et är en läsbar integrationsyta för publicerat innehåll, men ska inte
+användas som ersättning för backup eller som skrivkälla utan autentisering och
+ägarens godkännande. De verifierade publika ändpunkterna omfattar
+`/wp-json/wp/v2/pages`, `/wp-json/wp/v2/posts`, `/wp-json/wp/v2/media` och
+`/wp-json/wc/store/products`.
+
+### Lokal utveckling och publicering
+
+1. Skapa en lokal WordPress Studio-kopia genom Studio Sync eller en godkänd
+   säkerhetskopia enligt avsnittet **Första lokala kopian**.
+2. Kontrollera att databas, tema, aktiva tillägg och nödvändiga uppladdningar
+   finns i den lokala kopian innan en ändring påbörjas.
+3. Gör och granska ändringen lokalt. Anpassningar i ett importerat, eget tema
+   ska läggas under versionshantering först när teamet har beslutat vilken
+   del av `wp-content` som ska vara källkod i detta repository.
+4. Ta en lokal export eller annan återställningspunkt. Publicera sedan bara
+   godkända filer via Studio Sync eller webbhotellets etablerade rutin.
+5. Kontrollera den publika URL:en efter publicering. Databasändringar får
+   endast föras upp efter kontroll av formulärsvar, användare, order och annat
+   aktuellt produktionsinnehåll.
+
+Det finns ingen verifierad CI/CD-pipeline, deploy-hook eller byggprocess.
+Inför inte Node-, PHP- eller andra verktyg enbart för dokumentationens skull.
+Om ett versionshanterat tema eller en egen integration tillkommer ska dess
+pakethanterare, byggkommando, testkommando och deploy-flöde dokumenteras här
+vid samma ändring.
+
+### Bevarade beslut och begränsningar
+
+- Git är endast avsett för dokumentation och eventuellt framtida egen
+  temakod; hemligheter, databaser, säkerhetskopior, order- och persondata får
+  inte checkas in.
+- Produktionsdatabasen är den auktoritativa källan för nuvarande innehåll och
+  konfiguration tills en kontrollerad lokal kopia har skapats.
+- Det är inte bekräftat om Studio Sync, Jetpack Backup eller motsvarande
+  återställnings- och publiceringsfunktion finns. Det beslutet kräver åtkomst
+  till webbhotellet och WordPress-administrationen.
+- Publikt synliga tilläggstillgångar bekräftar inte exakta versioner, aktiv
+  konfiguration eller licensstatus. Verifiera samtliga i WordPress innan de
+  uppdateras, tas bort eller ersätts.
