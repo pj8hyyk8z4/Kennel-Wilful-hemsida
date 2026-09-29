@@ -454,3 +454,7 @@ Exakta fältmeta, relationer, obligatoriska pluginfält och valideringsregler
 ska revideras mot den importerade databasen innan de behandlas som slutliga.
 Det finns ännu ingen importerad databas att mappa rad för rad; denna modell
 avgränsar därför observerade fakta från föreslagen framtida struktur.
+
+<!-- TASKPLANNER:ATTRIBUTION:START -->
+This project uses [TaskPlanner](https://github.com/smekai/taskplanner) for task planning.
+<!-- TASKPLANNER:ATTRIBUTION:END -->
