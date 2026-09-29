@@ -261,3 +261,60 @@ vid samma ändring.
 - Publikt synliga tilläggstillgångar bekräftar inte exakta versioner, aktiv
   konfiguration eller licensstatus. Verifiera samtliga i WordPress innan de
   uppdateras, tas bort eller ersätts.
+
+## Bygg, test och publicering
+
+### Aktuell status
+
+Det finns medvetet inga kommandon för installation, utveckling, bygge, lintning,
+typkontroll eller test i detta repository. Det saknas också GitHub Actions.
+Repositoryt innehåller ännu inte källkod eller assets från webbplatsen; att
+lägga till generiska kommandon eller en alltid grön workflow skulle därför inte
+validera den faktiska webbplatsen.
+
+Den tekniska spärren för en automatiserad pipeline är importärendet
+[#4](https://github.com/pj8hyyk8z4/Kennel-Wilful-hemsida/issues/4). Även
+publiceringsmål, åtkomst och backup-rutin måste bekräftas med
+webbplatsadministratören innan en deploymentworkflow kan skapas. Fram till dess
+görs publicering manuellt enligt **Lokal utveckling och publicering** ovan.
+
+| Funktion | Status i repositoryt | Förutsättning för införande |
+| --- | --- | --- |
+| Installation | Ej tillämplig | Importerad och versionshanterad källkod med dokumenterad pakethanterare |
+| Lokal utveckling | WordPress Studio används utanför Git | En lokal kopia med databas, tema, tillägg och media |
+| Build | Ej tillämplig | Fastställt tema-/frontendspråk och eventuellt byggverktyg |
+| Lintning och typkontroll | Ej tillämplig | Källkod och språkval, till exempel PHP, JavaScript eller TypeScript |
+| Automatiserade tester | Ej tillämplig | Körbar lokal miljö och identifierade kritiska användarflöden |
+| GitHub Actions | Saknas avsiktligt | Reproducerbara kommandon som validerar importerad kod |
+| Deployment | Manuell och ej bekräftad | Godkänt publiceringsmål, minsta behörighet och återställningsplan |
+
+### Införande efter kodimport
+
+När #4 har levererat en ren, körbar checkout ska bygg- och
+publiceringsflödet etableras i denna ordning:
+
+1. Dokumentera de verkliga, icke-interaktiva kommandona för installation,
+   utveckling, build, lintning, typkontroll och test. Varje kommando ska kunna
+   köras från en ren checkout utan lokala hemligheter.
+2. Lägg till kontroller som passar den importerade tekniken. Minimikravet är
+   att en build och relevanta statiska kontroller körs i pull requests och på
+   `main`; tester tillkommer för kritiska flöden när det finns körbar kod.
+3. Konfigurera GitHub Actions så att misslyckade kontroller ger misslyckad
+   status och är ett krav före merge eller deployment. Workflowfiler ska endast
+   använda versionsstyrd konfiguration och GitHub Secrets för känsliga värden.
+4. Definiera ett explicit publiceringsmål och miljöer. Produktionsuppgifter,
+   lösenord, tokens, databasdumpar, privata nycklar och `.env`-filer får aldrig
+   läggas i Git eller skrivas ut i workflow-loggar.
+5. Koppla deployment till en godkänd commit efter godkända kontroller. Om
+   WordPress-databasen berörs krävs en verifierad backup och ett särskilt
+   godkännande; filpublicering och databasändring ska kunna göras separat.
+6. Dokumentera återställning som en namngiven backup, den commit som ska
+   återställas till, ansvarig roll och verifiering av den publika webbplatsen.
+   Testa återställningsrutinen i en lokal eller annan icke-produktiv miljö
+   innan den används i produktion.
+
+Miljövariabler ska dokumenteras med namn, syfte, om de krävs lokalt eller i CI
+och var värdet administreras, men aldrig med värden. Exempelvis kan framtida
+workflow-dokumentation referera till `WORDPRESS_*` eller
+`DEPLOY_*`-variabler först när deras faktiska behov och minsta behörighet är
+fastställda.
