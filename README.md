@@ -353,3 +353,104 @@ Kända layoutproblem ska hållas avgränsade; till exempel är överlappande bil
 redan spårat i [#7](https://github.com/pj8hyyk8z4/Kennel-Wilful-hemsida/issues/7).
 Återkommande paritetskontroller och skärmbildstester läggs till först när de
 kan köras reproducerbart mot den importerade implementationen.
+
+## Innehålls- och datamodell
+
+### Källa och avgränsning
+
+WordPress-databasen är den auktoritativa källan för det nuvarande redaktionella
+innehållet och WooCommerce-data. Innehåll ska inte kopieras till statiska filer
+som en parallell källa. Vid import till en lokal Studio-kopia ska databas och
+uppladdningar hämtas tillsammans så att relationer och Elementor-layoutdata
+bevaras.
+
+Den publikt synliga modellen har följande innehållstyper:
+
+| Typ | Källa | Användning |
+| --- | --- | --- |
+| Sida | WordPress `page` | Startsida, informationssidor, galleri, kontakt, butikens systemsidor och nyhetsarkivsmallar |
+| Inlägg | WordPress `post` | Nyhets- och kunskapsartiklar |
+| Media | WordPress `attachment` | Bilder, favicons och annat uppladdat material |
+| Produkt | WooCommerce `product` | Butikens produkter |
+| Produktkategori | WooCommerce `product_cat` | Gruppindelning av produkter |
+| Elementor-mall | `elementor_library` | Återanvändbara sidbyggarblock och mallar; faktisk användning måste bekräftas efter import |
+| Formulär | Contact Form 7 | Kontaktflöde; konfiguration och mottagare ska kontrolleras lokalt |
+
+Publika WordPress-register innehåller inte egna innehållstyper för hundar eller
+kullar. De får därför inte antas vara importerbara befintliga data. Om sådant
+innehåll ska bli en del av webbplatsen krävs först ägarens beslut om den
+föreslagna utökningen nedan.
+
+### Fält, relationer och validering
+
+| Typ | Obligatoriska fält | Relationer | Validering |
+| --- | --- | --- | --- |
+| Sida | titel, slug, publiceringsstatus, innehåll | valfri utvald bild; kan använda Elementor-mall | Titel får inte vara tom; slug ska vara unik och URL-säker; publicerat innehåll måste ha avsedd publiceringsstatus |
+| Inlägg | titel, slug, publiceringsdatum, status, brödtext | valfri utvald bild och kategori | Samma URL-krav som sida; datum ska vara giltigt; länkar och bilder ska ha granskats före publicering |
+| Media | fil, MIME-typ, alt-text för meningsbärande bild | kan refereras av sida, inlägg eller produkt | Tillåt endast godkända filformat; alt-text krävs för informativa bilder; filrättighet och licens ska vara dokumenterad |
+| Produkt | namn, slug, status, pris, valuta, produktkategori | noll eller fler bilder och kategorier | Pris ska vara ett icke-negativt belopp med korrekt valuta; slug ska vara unik; publicerad produkt behöver korrekt köpbarhetsstatus och tillgänglighetsinformation |
+| Produktkategori | namn, slug | noll eller fler produkter | Namn och slug ska vara unika; kategori utan produkter ska vara ett medvetet redaktionellt val |
+| Kontaktformulär | etikett, mottagare, samtyckestext | formulärfält och e-postmall | E-postfält ska valideras; samtycke krävs när det är tillämpligt; mottagare får inte exponeras publikt |
+
+Exempel på ett publicerbart redaktionellt innehållsobjekt:
+
+```text
+typ: sida
+titel: Om uppfödaren
+slug: about-breeder
+status: publish
+innehåll: redaktionell text och godkända mediareferenser
+utvald-bild: mediaobjekt med alt-text
+```
+
+Exempel på ett publicerbart butiksobjekt:
+
+```text
+typ: produkt
+namn: Produktnamn
+slug: produktnamn
+status: publish
+pris: 1000
+valuta: USD
+kategorier: [accessories]
+bilder: [mediaobjekt med alt-text]
+```
+
+Prisexemplet beskriver struktur, inte ett rekommenderat pris eller en valuta.
+Den importerade WooCommerce-konfigurationen är källan för befintliga
+produktvärden, skatt och betalningsinställningar.
+
+### Föreslagen utökning för kenneldata
+
+Om ägaren bekräftar att hundar och kullar ska förvaltas i webbplatsen bör de
+skapas som egna WordPress-innehållstyper eller ett motsvarande CMS-stöd, inte
+som hårdkodade Elementor-sektioner. Följande är ett förslag och är inte
+implementerat:
+
+| Typ | Obligatoriska fält | Relationer och regler |
+| --- | --- | --- |
+| Hund | namn, slug, kön, födelsedatum, status, huvudbild | Status väljs från en kontrollerad lista, exempelvis aktiv, pensionerad eller minnesida. Hälso- och registreringsuppgifter publiceras endast efter uttryckligt godkännande. |
+| Kull | namn eller identitet, födelsedatum, status | Refererar till tik och hane som hundobjekt. Datum måste vara giltigt och kullstatus ska styras av en kontrollerad lista. |
+| Kontaktuppgift | visningsnamn, kontaktmetod, publiceringsstatus | Personuppgifter ska begränsas till avsedda kontaktvägar och hållas åtskilda från formulärsvar. |
+
+### Redaktionellt flöde och migration
+
+1. Redaktören skapar eller uppdaterar innehåll i WordPress och väljer korrekt
+   status. Presentation styrs av tema- och Elementor-mallar, inte av
+   duplicerad text i mallar.
+2. Innan publicering kontrolleras obligatoriska fält, URL, alt-texter, interna
+   länkar, produktpris och kontaktvägar. Ändringar i formulär ska granskas
+   särskilt för mottagare och samtycke.
+3. Vid import exporteras databas och `wp-content/uploads` i samma
+   återställningsbara leverans. Importera först i en lokal miljö och jämför
+   postantal, URL:er, mediareferenser, produktkategorier och innehållsstatus
+   med inventeringen ovan.
+4. Rensa hemligheter, privata kontaktuppgifter, order, konton och
+   formulärsvar från allt som ska versionshanteras. Bevara deras relationer
+   endast i den skyddade lokala eller produktiva databasen när de behövs för
+   drift.
+
+Exakta fältmeta, relationer, obligatoriska pluginfält och valideringsregler
+ska revideras mot den importerade databasen innan de behandlas som slutliga.
+Det finns ännu ingen importerad databas att mappa rad för rad; denna modell
+avgränsar därför observerade fakta från föreslagen framtida struktur.
