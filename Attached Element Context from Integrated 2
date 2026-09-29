@@ -1,0 +1,67 @@
+Attached Element Context from Integrated Browser
+
+Element: img.attachment-large.size-large.wp-image-30542
+
+URL: https://www.wilful.se/
+
+HTML Path: main#site-content.flex-grow-1 > article#post-30082.post-30082.page.type-page.status-publish.hentry > div.post-inner > div.entry-content.clearfix > div.elementor.elementor-30082 > section.elementor-section.elementor-top-section.elementor-element.elementor-element-e6cafe4.elementor-section-boxed.elementor-section-height-default.elementor-section-height-default > div.elementor-container.elementor-column-gap-default > div.elementor-column.elementor-col-100.elementor-top-column.elementor-element.elementor-element-01377d6 > div.elementor-widget-wrap.elementor-element-populated > section.elementor-section.elementor-inner-section.elementor-element.elementor-element-b012e13.elementor-section-full_width.elementor-section-height-default.elementor-section-height-default > div.elementor-container.elementor-column-gap-default > div.elementor-column.elementor-col-33.elementor-inner-column.elementor-element.elementor-element-fb61f03.animated.fadeIn > div.elementor-widget-wrap.elementor-element-populated > div.elementor-element.elementor-element-c1037ab.elementor-widget.elementor-widget-image > div.elementor-widget-container > img.attachment-large.size-large.wp-image-30542
+
+Outer HTML:
+```html
+<img loading="lazy" decoding="async" width="849" height="1024" src="https://www.wilful.se/wp-content/uploads/2026/09/ChatGPT-bild-25-sep.-2026-14_02_36-849x1024.png" class="attachment-large size-large wp-image-30542" alt="" srcset="https://www.wilful.se/wp-content/uploads/2026/09/ChatGPT-bild-25-sep.-2026-14_02_36-849x1024.png 849w, https://www.wilful.se/wp-content/uploads/2026/09/ChatGPT-bild-25-sep.-2026-14_02_36-249x300.png 249w, https://www.wilful.se/wp-content/uploads/2026/09/ChatGPT-bild-25-sep.-2026-14_02_36-768x926.png 768w, https://www.wilful.se/wp-content/uploads/2026/09/ChatGPT-bild-25-sep.-2026-14_02_36-600x723.png 600w, https://www.wilful.se/wp-content/uploads/2026/09/ChatGPT-bild-25-sep.-2026-14_02_36.png 1142w" sizes="(max-width: 849px) 100vw, 849px">
+```
+
+Dimensions:
+- top: 432px
+- left: 48px
+- width: 517px
+- height: 623px
+
+CSS:
+```css
+*, *::before, *::after { box-sizing: border-box; }
+img { vertical-align: middle;
+    border-style: none; }
+img { max-width: 100%;
+    height: auto; }
+img { /*noinspection CssInvalidPropertyValue*/
+    image-rendering: -webkit-optimize-contrast; }
+.elementor *, .elementor :after, .elementor :before { box-sizing:border-box }
+.elementor img { border:none;border-radius:0;box-shadow:none;height:auto;max-width:100% }
+.elementor-widget-image img { display:inline-block;vertical-align:middle }
+.elementor-30082 .elementor-element.elementor-element-c1037ab img { max-width:99%; }
+
+/* Inherited */
+.elementor-widget-image { text-align:center }
+body { font-size: 1rem; font-weight: 400; line-height: 1.5; letter-spacing: normal; text-align: left }
+body { font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' }
+body, input, textarea, select, button { direction: ltr }
+body { color: var(--global-txt-color) }
+html { font-family: sans-serif; line-height: 1.15 }
+
+/* Resolved values */
+border-radius: 0px;
+border: 0px none rgb(6, 45, 62);
+box-shadow: none;
+box-sizing: border-box;
+color: rgb(6, 45, 62);
+direction: ltr;
+display: inline-block;
+font-family: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+font-size: 16px;
+font-weight: 400;
+height: 623.078px;
+image-rendering: -webkit-optimize-contrast;
+letter-spacing: normal;
+line-height: 24px;
+max-width: 99%;
+overflow-clip-margin: content-box /*UA*/;
+overflow-x: clip /*UA*/;
+overflow-y: clip /*UA*/;
+text-align: center;
+vertical-align: middle;
+width: 516.766px;
+
+/* CSS variables */
+--global-txt-color: #062D3E;
+```
