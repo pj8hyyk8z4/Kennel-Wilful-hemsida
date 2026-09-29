@@ -318,3 +318,38 @@ och var värdet administreras, men aldrig med värden. Exempelvis kan framtida
 workflow-dokumentation referera till `WORDPRESS_*` eller
 `DEPLOY_*`-variabler först när deras faktiska behov och minsta behörighet är
 fastställda.
+
+## Verifiering av visuell och funktionell paritet
+
+Ingen paritetsverifiering har ännu utförts. #5 är blockerad tills #4 har
+importerat en körbar implementation och #3 har etablerat relevanta
+valideringskommandon. Den publika produktionswebbplatsen är tills dess endast
+en visuell referens, inte ett testresultat.
+
+När implementationen är tillgänglig ska varje punkt nedan jämföras mot
+`https://www.wilful.se/` på samma dag och dokumenteras som **likvärdig**,
+**avsiktlig avvikelse** eller **fel**. Avsiktliga avvikelser kräver ett
+beslutat skäl och en länk till relevant ärende.
+
+| Område | Referens och kontroll |
+| --- | --- |
+| Sidor och navigering | Kontrollera startsidan och samtliga sidor som listas under **Publicerade sidor**, inklusive menylänkar, intern navigering och 404-hantering. |
+| Redaktionellt innehåll | Kontrollera rubriker, brödtext, bildordning, gallerier, länkar, nyhetsarkiv och de 15 inventerade inläggen. |
+| Butik | Kontrollera butik, produktlistor, produktdetaljer, varukorg, kassa och konto utan att skapa order i produktion. |
+| Kontakt | Kontrollera kontaktvägar och formulärets klientvalidering. Använd en kontrollerad testmottagare eller lokal miljö; skicka inte testdata till produktionsmottagare utan godkännande. |
+| Responsivitet | Jämför minst mobil, tablet och desktop. Kontrollera särskilt överlappande bilder, horisontell scroll, navigering, gallerier och WooCommerce-vyer. |
+| Tillgänglighet | Testa tangentbordsnavigering, synlig fokusmarkering, rubrikhierarki, alternativa texter, formuläretiketter och kontrast i centrala flöden. |
+| Externa beroenden | Kontrollera att typsnitt, Facebook-flöde, YouTube, reCAPTCHA om det används och övriga godkända tredjepartsresurser fungerar eller har en dokumenterad reservhantering. |
+
+Visuell jämförelse ska använda samma viewport, zoomnivå, innehållstillstånd och
+inloggningsstatus för referens och implementation. Spara skärmbilder eller
+andra jämförelseartefakter utanför Git om de innehåller persondata; annars kan
+de versionshanteras med tydlig sid- och viewportbenämning. Playwright MCP är
+konfigurerat i `.github/mcp.json` för browserinspektion när en betrodd och
+körbar lokal implementation finns.
+
+Funna avvikelser ska åtgärdas före publicering eller spåras i separata issues.
+Kända layoutproblem ska hållas avgränsade; till exempel är överlappande bilder
+redan spårat i [#7](https://github.com/pj8hyyk8z4/Kennel-Wilful-hemsida/issues/7).
+Återkommande paritetskontroller och skärmbildstester läggs till först när de
+kan köras reproducerbart mot den importerade implementationen.
