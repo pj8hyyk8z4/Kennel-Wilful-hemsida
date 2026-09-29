@@ -1,0 +1,65 @@
+Attached Element Context from Integrated Browser
+
+Element: div.elementor-background-overlay
+
+URL: https://www.wilful.se/
+
+HTML Path: main#site-content.flex-grow-1 > article#post-30082.post-30082.page.type-page.status-publish.hentry > div.post-inner > div.entry-content.clearfix > div.elementor.elementor-30082 > section.elementor-section.elementor-top-section.elementor-element.elementor-element-e6cafe4.elementor-section-boxed.elementor-section-height-default.elementor-section-height-default > div.elementor-background-overlay
+
+Outer HTML:
+```html
+<div class="elementor-background-overlay"></div>
+```
+
+Dimensions:
+- top: 120px
+- left: 0px
+- width: 612px
+- height: 1823px
+
+CSS:
+```css
+*, *::before, *::after { box-sizing: border-box; }
+.elementor *, .elementor :after, .elementor :before { box-sizing:border-box }
+.elementor .elementor-background-overlay { inset:0;position:absolute }
+.elementor-30082 .elementor-element.elementor-element-e6cafe4 > .elementor-background-overlay { background-image:url("https://www.wilful.se/wp-content/uploads/2024/01/wrwrtbh.png");background-position:top right;background-repeat:no-repeat;background-size:19% auto;opacity:1;transition:background 0.3s, border-radius 0.3s, opacity 0.3s; }
+.elementor-30082 .elementor-element.elementor-element-e6cafe4 > .elementor-background-overlay { background-position:100% 100%;background-size:24% auto; }
+.elementor-30082 .elementor-element.elementor-element-e6cafe4 > .elementor-background-overlay { background-position:100% 100%;background-size:33% auto; }
+
+/* Inherited */
+body { font-size: 1rem; font-weight: 400; line-height: 1.5; letter-spacing: normal; text-align: left }
+body { font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' }
+body, input, textarea, select, button { direction: ltr }
+body { color: var(--global-txt-color) }
+html { font-family: sans-serif; line-height: 1.15 }
+
+/* Resolved values */
+transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+background-image: url("https://www.wilful.se/wp-content/uploads/2024/01/wrwrtbh.png");
+background-position-x: 100%;
+background-position-y: 100%;
+background-repeat: no-repeat;
+background-size: 33%;
+bottom: 0px;
+box-sizing: border-box;
+color: rgb(6, 45, 62);
+direction: ltr;
+display: block;
+font-family: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+font-size: 16px;
+font-weight: 400;
+height: 1822.59px;
+left: 0px;
+letter-spacing: normal;
+line-height: 24px;
+opacity: 1;
+position: absolute;
+right: 0px;
+text-align: left;
+top: 0px;
+unicode-bidi: isolate /*UA*/;
+width: 612px;
+
+/* CSS variables */
+--global-txt-color: #062D3E;
+```
