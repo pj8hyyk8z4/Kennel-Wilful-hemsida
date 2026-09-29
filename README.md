@@ -65,3 +65,108 @@ WordPress-webbplats, men avslöjar inte om den uppfyller kraven för Studio Sync
 Bekräfta driftform och backup-lösning med webbhotellets administratör innan
 kopplingen aktiveras. Om kraven inte är uppfyllda används säkerhetskopia och
 manuell import i stället för att försöka ansluta Studio direkt till URL:en.
+
+## Inventering av nuvarande webbplats
+
+Inventeringen nedan gjordes 2026-09-29 mot den publika webbplatsen och dess
+öppna WordPress REST-API. Den är en verifierbar nulägesbild, inte en export av
+produktionsmiljön. Den visuella referensen är den publicerade
+[startsidan](https://www.wilful.se/); det finns inga skärmbilder eller
+produktionsfiler i detta repository.
+
+### Publicerade sidor
+
+Följande 14 sidor returneras som publicerade av
+[`wp/v2/pages`](https://www.wilful.se/wp-json/wp/v2/pages?per_page=100):
+
+| Titel | URL | Anmärkning |
+| --- | --- | --- |
+| Loving Homes, Happy Dogs | <https://www.wilful.se/> | Startsida |
+| About Breeder | <https://www.wilful.se/about-breeder/> | |
+| Your Dog, Your Story | <https://www.wilful.se/your-dog-your-story/> | |
+| Your Trusted Breeder | <https://www.wilful.se/your-trusted-breeder/> | |
+| Our Services | <https://www.wilful.se/our-services/> | |
+| Your Furry Friend | <https://www.wilful.se/your-furry-friend/> | |
+| Our Gallery | <https://www.wilful.se/our-gallery/> | |
+| News with Sidebar | <https://www.wilful.se/blog-1-column-with-sidebar/> | Nyhetsarkivsmall |
+| News Classic | <https://www.wilful.se/blog-1-column/> | Nyhetsarkivsmall |
+| Contact Us | <https://www.wilful.se/contact-us/> | Kontaktformulär förekommer i sidans beroenden |
+| Shop | <https://www.wilful.se/shop/> | Butik |
+| Cart | <https://www.wilful.se/cart/> | Varukorg |
+| Checkout | <https://www.wilful.se/checkout/> | Kassa |
+| My account | <https://www.wilful.se/my-account/> | Kundkonto |
+
+### Inlägg och butik
+
+Det finns 15 publicerade inlägg i
+[`wp/v2/posts`](https://www.wilful.se/wp-json/wp/v2/posts?per_page=100):
+
+| Titel | URL |
+| --- | --- |
+| Choosing the Right Breed: A Guide for Prospective Dog Owners | <https://www.wilful.se/choosing-the-right-breed-a-guide-for-prospective-dog-owners/> |
+| The Art of Responsible Dog Breeding: What You Need to Know | <https://www.wilful.se/the-art-of-responsible-dog-breeding-what-you-need-to-know/> |
+| Puppy Development Milestones: From Birth to Adoption | <https://www.wilful.se/puppy-development-milestones-from-birth-to-adoption/> |
+| Top Tips for Preparing Your Home for a New Puppy | <https://www.wilful.se/top-tips-for-preparing-your-home-for-a-new-puppy/> |
+| The Importance of Early Socialization for Puppies | <https://www.wilful.se/the-importance-of-early-socialization-for-puppies/> |
+| Understanding Dog Health Certifications for Breeding Dogs | <https://www.wilful.se/understanding-dog-health-certifications-for-breeding-dogs/> |
+| Common Myths About Dog Breeding Debunked | <https://www.wilful.se/common-myths-about-dog-breeding-debunked/> |
+| How to Find a Reputable Dog Breeder: Your Checklist | <https://www.wilful.se/how-to-find-a-reputable-dog-breeder-your-checklist/> |
+| What Separates Responsible Breeders from the Rest | <https://www.wilful.se/what-separates-responsible-breeders-from-the-rest/> |
+| The Role of Nutrition in Raising Healthy Breeding Dogs | <https://www.wilful.se/the-role-of-nutrition-in-raising-healthy-breeding-dogs/> |
+| Tips for Successful Puppy Training and Obedience | <https://www.wilful.se/tips-for-successful-puppy-training-and-obedience/> |
+| Caring for Pregnant Dogs: A Guide for Breeders | <https://www.wilful.se/caring-for-pregnant-dogs-a-guide-for-breeders/> |
+| The Genetics of Coat Colors and Patterns in Dogs | <https://www.wilful.se/the-genetics-of-coat-colors-and-patterns-in-dogs/> |
+| Preparing for a Litter: A Breeder's Guide to Whelping | <https://www.wilful.se/preparing-for-a-litter-a-breeders-guide-to-whelping/> |
+| Creating the Perfect Puppy Playroom: Tips and Ideas | <https://www.wilful.se/creating-the-perfect-puppy-playroom-tips-and-ideas/> |
+
+Butiken är publicerad via WooCommerce och innehåller 36 produkter enligt
+[`wc/store/products`](https://www.wilful.se/wp-json/wc/store/products?per_page=100).
+Produktkategorierna är Accessories, Bags, Cloth, Hoodie, Shirts, Sweatshirts,
+T-shirts och Uncategorized. Produkt- och kategorisidor ska betraktas som
+befintliga publika URL:er även om de inte är fristående WordPress-sidor.
+
+### Media, utformning och externa tjänster
+
+- Det publika mediebiblioteket innehåller 89 filer: 54 PNG, 32 JPEG och 3
+  WebP. Filerna hämtas från `wp-content/uploads`; hela listan kan hämtas via
+  [`wp/v2/media`](https://www.wilful.se/wp-json/wp/v2/media?per_page=100).
+- De identifierade ikonfilerna är
+  [`kenela-fav.png`](https://www.wilful.se/wp-content/uploads/2024/01/kenela-fav.png)
+  och
+  [`cropped-kenela-fav.png`](https://www.wilful.se/wp-content/uploads/2024/01/cropped-kenela-fav.png).
+  Den faktiska logotypen och dess licens kan inte bekräftas utan åtkomst till
+  mediebiblioteket eller temafilerna.
+- Startsidan laddar Google Fonts: Roboto, Roboto Slab, Source Sans 3, Source
+  Sans Pro, Libre Baskerville, Fraunces, Outfit och Work Sans.
+- Startsidan länkar till Facebook-sidan
+  [Wilfuls BT](https://www.facebook.com/wilfulsbt) och till en YouTube-video.
+  Ett Facebook-flöde laddas också från Facebooks CDN.
+- Den publikt observerbara presentationen använder WordPress-temat `kenela`
+  tillsammans med Elementor. Laddade tilläggstillgångar visar även
+  WooCommerce, Contact Form 7, Custom Facebook Feed Pro, King Addons och
+  Supreme Modules for Divi. Detta visar inte vilka tillägg som är aktiva i
+  administrationsgränssnittet.
+
+### Källor, bevarande och öppna frågor
+
+| Område | Verifierat nuläge | Hantering före ändring |
+| --- | --- | --- |
+| Kod och konfiguration | Saknas i Git. Det publika HTML-svaret pekar på temat `kenela` och WordPress-tillägg, men deras källfiler är inte tillgängliga här. | Hämta tema och tillägg via Studio Sync eller en godkänd säkerhetskopia. |
+| Innehållsdata | Sidor, inlägg, produkter, inställningar och formulärdata finns i produktionsdatabasen. | Exportera eller synkronisera databasen innan innehåll eller struktur ändras. |
+| Bilder och övriga uppladdningar | Finns under produktionswebbplatsens `wp-content/uploads`; 89 publika mediaobjekt kan observeras via API:t. | Hämta uppladdningar med säkerhetskopian eller Studio Sync. |
+| Publicering | Webbhotell, deploy-rutin, backup-lösning och Studio Sync-stöd är inte bekräftade. | Bekräfta med webbhotellets administratör innan import eller push. |
+
+Tills ägaren har fattat dokumenterade beslut ska samtliga ovan listade publika
+URL:er, befintligt innehåll, media, logotyp/favicons, butiksflöde och externa
+integreringar bevaras oförändrade. Det finns ännu inget underlag för att
+godkänna omarbetning av någon del. Följande behöver därför besvaras innan
+implementering planeras:
+
+1. Vem har administratörsbehörighet till WordPress, webbhotell och
+   WordPress.com/Jetpack?
+2. Var finns en återställningsbar säkerhetskopia och vem godkänner återläsning
+   eller synkronisering?
+3. Vilka av de upptäckta temana, tilläggen, produktkategorierna och
+   integreringarna används avsiktligt?
+4. Vilken logotyp, vilka bilder och vilket textinnehåll får ändras, ersättas
+   eller tas bort?
