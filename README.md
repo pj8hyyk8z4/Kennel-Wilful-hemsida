@@ -4,6 +4,14 @@ Ett repository som beskriver hur webbplatsen [wilful.se](https://www.wilful.se/)
 är uppbyggd och redigeras. Själva WordPress-installationen, innehållet och
 inloggningsuppgifter finns inte i detta repository.
 
+## AI-stödd uppgiftsplanering
+
+Använd [AI-mallen för uppgiftsplanering](./AI-TASK-PLAN.md) innan en större
+ändring påbörjas. En plan ska skilja verifierade fakta från antaganden, beskriva
+omfattning och verifiering samt ange risker och nödvändiga godkännanden. Planen
+är inte i sig ett godkännande att ändra eller publicera något på
+produktionswebbplatsen.
+
 ## Redigering med WordPress Studio
 
 [WordPress Studio](https://developer.wordpress.com/studio/) används för att
