@@ -357,8 +357,14 @@ konfigurerat i `.github/mcp.json` för browserinspektion när en betrodd och
 körbar lokal implementation finns.
 
 Funna avvikelser ska åtgärdas före publicering eller spåras i separata issues.
-Kända layoutproblem ska hållas avgränsade; till exempel är överlappande bilder
-redan spårat i [#7](https://github.com/pj8hyyk8z4/Kennel-Wilful-hemsida/issues/7).
+Överlappen som granskades på startsidan för [#7](https://github.com/pj8hyyk8z4/Kennel-Wilful-hemsida/issues/7)
+kontrollerades 2026-10-04 i desktop- och mobilvy. De berörda Elementor-bilderna
+är uttryckligen absolut positionerade och bildar dekorativa kollage; de vanliga
+bildkolumnerna kolliderar inte. Ingen CSS-ändring gjordes, eftersom den skulle
+ta bort avsedd layout. Framtida rapporter om oavsiktliga bildöverlappningar ska
+ange berörd sida, viewport och bildens/wrapperns Elementor-ID så att de kan
+skiljas från dessa avsiktliga överlägg.
+
 Återkommande paritetskontroller och skärmbildstester läggs till först när de
 kan köras reproducerbart mot den importerade implementationen.
 
